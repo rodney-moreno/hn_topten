@@ -1,0 +1,7 @@
+<section class="">
+  <h1>HackerNews Top 10</h1>
+  <form>
+    <input type="text">
+    <input type="submit">
+  </form>
+</section>
