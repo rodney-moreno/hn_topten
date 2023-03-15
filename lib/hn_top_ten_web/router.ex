@@ -19,7 +19,7 @@ defmodule HnTopTenWeb.Router do
 
     get "/", PageController, :index
 
-    get "/topten", TopTenController, :top_ten
+    get "/topten", TopTenController, :topten
   end
 
   # Other scopes may use custom stacks.

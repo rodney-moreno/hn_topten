@@ -3,9 +3,8 @@ defmodule HnTopTenWeb.TopTenController do
 
   alias HnTopTenWeb.TopTenView
   
-  def top_ten(conn, _params) do
-    posts = TopTenView.get_posts()
-    render(conn, "top_ten.html", posts)
+  def topten(conn, _params) do
+    render(conn, "top_ten.html")
   end
   
 end

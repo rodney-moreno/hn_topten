@@ -1,8 +1,8 @@
 defmodule HnTopTen.BinarySearch do
   def search(left, right, time) do
-    id = left + right / 2
+    id = trunc(left + right / 2)
 
-    prev_time = get_post_time(id, time)
+    prev_time = get_post_time(id)
 
     if prev_time <= time do
       id
@@ -12,13 +12,13 @@ defmodule HnTopTen.BinarySearch do
   end
 
   def call_api(id) do
-    case HTTPoison.get("https://hacker-news.firebaseio.com/v0/id/#{id}") do
-      {:ok, %HTTPoisonResponse{status_code: 200, body: body}} -> {:ok, body}
-      {:error, HTTPoisonError} -> {:error, HTTPoisonError}
+    case HTTPoison.get("https://hacker-news.firebaseio.com/v0/item/#{id}.json?print=pretty") do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> {:ok, body}
+      {:error, _HTTPoisonError} -> {:error, HTTPoisonError}
     end
   end
 
-  def get_post_time(id, time) do
+  def get_post_time(id) do
     # attempt 3
     with {:ok, response} <- call_api(id),
 	 {:ok, decoded} <- Jason.decode(response) do
@@ -40,8 +40,8 @@ defmodule HnTopTen.BinarySearch do
     # end
 
     def main() do
-      time = System.os_time(:second) - 604800
-      Io.puts HnTopTen.BinarySearch.search(0, 35137198, time)
+      time = trunc(System.os_time(:second) - 604800)
+      IO.puts HnTopTen.BinarySearch.search(0, 35161067, time)
     end
   end
 
